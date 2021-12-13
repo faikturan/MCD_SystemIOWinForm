@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,30 @@ namespace MCD_SystemIOWinForm
 
             return personelListe;
         }
+
+        public void PersonelKaydet(string path, List<Personel> personelListesi)
+        {
+            DirectoryInfo ulkeBilgisi = null;
+
+            for (int i = 0; i < personelListesi.Count; i++)
+            {
+                if (Directory.Exists(path + "\\" + personelListesi[i].ulke))
+                {
+                    ulkeBilgisi = new DirectoryInfo(path + "\\" + personelListesi[i].ulke);
+                }
+                else
+                {
+                    ulkeBilgisi = Directory.CreateDirectory(path + "\\" + personelListesi[i].ulke);
+                }
+
+                FileStream fs = File.Create(ulkeBilgisi.FullName + "\\" + personelListesi[i].isim + "." + personelListesi[i].soyisim + ".txt");
+                byte[] personelBilgi = new UTF8Encoding(true).GetBytes(personelListesi[i].personelBilgiGetir());
+                fs.Write(personelBilgi, 0, personelBilgi.Length);
+                fs.Close();
+            }
+
+        }
+
 
     }
 }
