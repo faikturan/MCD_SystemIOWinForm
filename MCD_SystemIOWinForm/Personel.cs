@@ -20,6 +20,11 @@ namespace MCD_SystemIOWinForm
             return isim + " " + soyisim;
         }
 
+        public string personelBilgiGetir()
+        {
+            return string.Format("İsim : {0} Soyisim : {1} EmailAdres{2} Firma Adı{3} Ülke{4}", isim, soyisim, emailAdres, firmaAdi, ulke);
+        }
+
 
     }
 }
